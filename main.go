@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"sort"
 
 	"github.com/fsnotify/fsnotify"
 )
@@ -17,7 +16,8 @@ type FileType struct {
 }
 
 func main() {
-	downloadFolder := "C:\\Users\\i13exai\\Downloads\\"
+	userDir := getUserHomeDir()
+	downloadFolder := userDir + "\\Downloads\\"
 
 	fmt.Println("Filewatcher started...")
 	fmt.Println("Observing folder: ", downloadFolder)
@@ -46,29 +46,9 @@ func main() {
 		{Name: "Font", Extension: ".ttf", Category: "Fonts"},
 	}
 
-	sort.Slice(fileTypes, func(i, j int) bool {
-		return fileTypes[i].Category < fileTypes[j].Category
-	})
-
-	// file, err := os.Open((filePath + "test.txt"))
-	// if err != nil {
-	// 	log.Fatal(err)
-	// 	return
-	// }
-	// defer file.Close()
-
-	// content, err := os.ReadFile(filePath + "test.txt")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// } else {
-	// 	fmt.Printf("File content is: %s", content)
-	// }
-	// fmt.Println(fileTypes)
-
-	// testFile := downloadFolder + "test.txt"
-
-	// fileExtension := filepath.Ext(testFile)
-	// fmt.Println(fileExtension)
+	// sort.Slice(fileTypes, func(i, j int) bool {
+	// 	return fileTypes[i].Category < fileTypes[j].Category
+	// })
 
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
@@ -156,4 +136,12 @@ func WalkMatch(downloadFolder, pattern string) ([]string, error) {
 		return nil, err
 	}
 	return matches, nil
+}
+
+func getUserHomeDir() string {
+	homeDir, err := os.UserHomeDir()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return homeDir
 }
