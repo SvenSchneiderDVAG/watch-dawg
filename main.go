@@ -8,6 +8,8 @@ import (
 	"github.com/fsnotify/fsnotify"
 )
 
+const DEBUG = false
+
 type FileType struct {
 	Name      string
 	Extension string
@@ -16,41 +18,49 @@ type FileType struct {
 
 func main() {
 	userDir := getUserHomeDir()
-	downloadFolder := userDir + "\\Downloads\\"
+	df := userDir + "/Downloads/"
+
+	cat := []string{"Documents", "Executables", "Images",
+		"Fonts", "Sounds", "Misc", "Compressed", "Videos"}
 
 	fileTypes := []FileType{
-		{Name: "PDF", Extension: ".pdf", Category: "Documents"},
-		{Name: "Text", Extension: ".txt", Category: "Documents"},
-		{Name: "Word", Extension: ".docx", Category: "Documents"},
-		{Name: "Program", Extension: ".exe", Category: "Executables"},
-		{Name: "Setup", Extension: ".msi", Category: "Executables"},
-		{Name: "ZIP", Extension: ".zip", Category: "Compressed"},
-		{Name: "RAR", Extension: ".rar", Category: "Compressed"},
-		{Name: "PNG", Extension: ".png", Category: "Images"},
-		{Name: "JPEG", Extension: ".jpg", Category: "Images"},
-		{Name: "GIF", Extension: ".gif", Category: "Images"},
-		{Name: "MP3", Extension: ".mp3", Category: "Sounds"},
-		{Name: "WAVE", Extension: ".wav", Category: "Sounds"},
-		{Name: "MP4", Extension: ".mp4", Category: "Sounds"},
-		{Name: "Playlist", Extension: ".pls", Category: "Sounds"},
-		{Name: "OGG", Extension: ".ogg", Category: "Sounds"},
-		{Name: "MKV", Extension: ".mkv", Category: "Videos"},
-		{Name: "AVI", Extension: ".avi", Category: "Videos"},
-		{Name: "MPG", Extension: ".mpg", Category: "Videos"},
-		{Name: "Font", Extension: ".ttf", Category: "Fonts"},
+		{Name: "PDF", Extension: ".pdf", Category: cat[0]},
+		{Name: "Text", Extension: ".txt", Category: cat[0]},
+		{Name: "Word", Extension: ".docx", Category: cat[0]},
+		{Name: "Exel", Extension: ".xlsx", Category: cat[0]},
+		{Name: "Powerpoint", Extension: ".pptx", Category: cat[0]},
+		{Name: "Program", Extension: ".exe", Category: cat[1]},
+		{Name: "Setup", Extension: ".msi", Category: cat[1]},
+		{Name: "ZIP", Extension: ".zip", Category: cat[6]},
+		{Name: "RAR", Extension: ".rar", Category: cat[6]},
+		{Name: "PNG", Extension: ".png", Category: cat[2]},
+		{Name: "JPEG", Extension: ".jpg", Category: cat[2]},
+		{Name: "BMP", Extension: ".bmp", Category: cat[2]},
+		{Name: "TIFF", Extension: ".tiff", Category: cat[2]},
+		{Name: "GIF", Extension: ".gif", Category: cat[2]},
+		{Name: "MP3", Extension: ".mp3", Category: cat[4]},
+		{Name: "WAVE", Extension: ".wav", Category: cat[4]},
+		{Name: "MP4", Extension: ".mp4", Category: cat[4]},
+		{Name: "Playlist", Extension: ".pls", Category: cat[4]},
+		{Name: "OGG", Extension: ".ogg", Category: cat[4]},
+		{Name: "MKV", Extension: ".mkv", Category: cat[7]},
+		{Name: "AVI", Extension: ".avi", Category: cat[7]},
+		{Name: "MPG", Extension: ".mpg", Category: cat[7]},
+		{Name: "Font", Extension: ".ttf", Category: cat[3]},
 	}
 
 	fmt.Println("Watch Dawg started...")
-	setupAll(downloadFolder)
-	fmt.Println("Observing download folder: ", downloadFolder)
 
-	// sort.Slice(fileTypes, func(i, j int) bool {
-	// 	return fileTypes[i].Category < fileTypes[j].Category
-	// })
+	fmt.Println("\nChecking category folders...")
+	for _, c := range cat {
+		checkFolder(df, c)
+	}
+	fmt.Printf("\nDone!\n\n")
+	fmt.Printf("Observing download folder: %s\n", df)
 
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
-		fmt.Println("Error: ", err)
+		fmt.Println("ERROR:", err)
 	}
 	defer watcher.Close()
 
@@ -62,61 +72,49 @@ func main() {
 			case event := <-watcher.Events:
 				fmt.Println("Event:", event)
 				for _, fileType := range fileTypes {
-					files, err := WalkMatch(downloadFolder, "*"+fileType.Extension)
+					files, err := WalkMatch(df, "*"+fileType.Extension)
 					if err != nil {
-						fmt.Printf("Error while walking %s: %s\n", downloadFolder, err)
+						fmt.Printf("ERROR: Walk directory: %s\n", err)
 					} else {
 						for _, file := range files {
-							// fmt.Printf("Moving file %s to folder %s.\n", file, fileType.Category)
+							DebugPrint("Moving file", file, "to folder", fileType.Category)
 							fileName := filepath.Base(file)
-							// fmt.Println("Name of file: ", fileName)
-							err := os.Rename(file, downloadFolder+fileType.Category+"\\"+fileName)
+							err := os.Rename(file, df+fileType.Category+"/"+fileName)
 							if err != nil {
-								fmt.Printf("Error while moving file %s: %s\n", file, err)
+								fmt.Printf("ERROR: can't move file %s: %s\n", file, err)
 								return
 							}
 						}
 					}
 				}
 			case err := <-watcher.Errors:
-				fmt.Println("Error: ", err)
+				fmt.Println("ERROR:", err)
 			}
 		}
 	}()
 
-	err = watcher.Add(downloadFolder)
+	err = watcher.Add(df)
 	if err != nil {
-		fmt.Println("Error: ", err)
+		fmt.Println("ERROR:", err)
 	}
 
 	<-done
 }
 
-func setupAll(downloadFolder string) {
-	fmt.Println("Checking category folders...")
-
-	checkFolder(downloadFolder, "Compressed")
-	checkFolder(downloadFolder, "Documents")
-	checkFolder(downloadFolder, "Executables")
-	checkFolder(downloadFolder, "Images")
-	checkFolder(downloadFolder, "Sounds")
-	checkFolder(downloadFolder, "Fonts")
-}
-
-func checkFolder(downloadFolder, folderName string) {
-	folder := downloadFolder + folderName
+func checkFolder(df, folderName string) {
+	folder := df + folderName
 	if _, err := os.Stat(folder); os.IsNotExist(err) {
 		os.Mkdir(folder, 0777)
-		fmt.Printf("Creating new category folder: '%s'\n", folder)
+		DebugPrint("INFO: Creating new category folder:", folder)
 	} else {
-		// fmt.Printf("Folder '%s' does already exist.\n", folder)
+		DebugPrint("INFO: Folder already exists:", folder)
 		return
 	}
 }
 
-func WalkMatch(downloadFolder, pattern string) ([]string, error) {
+func WalkMatch(df, pattern string) ([]string, error) {
 	var matches []string
-	err := filepath.Walk(downloadFolder, func(path string, info os.FileInfo, err error) error {
+	err := filepath.Walk(df, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -139,7 +137,14 @@ func WalkMatch(downloadFolder, pattern string) ([]string, error) {
 func getUserHomeDir() string {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
-		fmt.Printf("Error while getting User home directory: %s\n", err)
+		fmt.Printf("ERROR: can't get user home directory: %s\n", err)
 	}
 	return homeDir
+}
+
+func DebugPrint(str ...interface{}) {
+	if DEBUG {
+		fmt.Println(str...)
+		return
+	}
 }
