@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 
@@ -18,11 +17,6 @@ type FileType struct {
 func main() {
 	userDir := getUserHomeDir()
 	downloadFolder := userDir + "\\Downloads\\"
-
-	fmt.Println("Filewatcher started...")
-	fmt.Println("Observing folder: ", downloadFolder)
-
-	setupAll(downloadFolder)
 
 	fileTypes := []FileType{
 		{Name: "PDF", Extension: ".pdf", Category: "Documents"},
@@ -46,13 +40,17 @@ func main() {
 		{Name: "Font", Extension: ".ttf", Category: "Fonts"},
 	}
 
+	fmt.Println("Watch Dawg started...")
+	setupAll(downloadFolder)
+	fmt.Println("Observing download folder: ", downloadFolder)
+
 	// sort.Slice(fileTypes, func(i, j int) bool {
 	// 	return fileTypes[i].Category < fileTypes[j].Category
 	// })
 
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
-		fmt.Println("error:", err)
+		fmt.Println("Error: ", err)
 	}
 	defer watcher.Close()
 
@@ -62,11 +60,11 @@ func main() {
 		for {
 			select {
 			case event := <-watcher.Events:
-				fmt.Println("event:", event)
+				fmt.Println("Event:", event)
 				for _, fileType := range fileTypes {
 					files, err := WalkMatch(downloadFolder, "*"+fileType.Extension)
 					if err != nil {
-						log.Fatal(err)
+						fmt.Printf("Error while walking %s: %s\n", downloadFolder, err)
 					} else {
 						for _, file := range files {
 							// fmt.Printf("Moving file %s to folder %s.\n", file, fileType.Category)
@@ -74,42 +72,42 @@ func main() {
 							// fmt.Println("Name of file: ", fileName)
 							err := os.Rename(file, downloadFolder+fileType.Category+"\\"+fileName)
 							if err != nil {
-								log.Fatal(err)
+								fmt.Printf("Error while moving file %s: %s\n", file, err)
 								return
 							}
 						}
 					}
 				}
 			case err := <-watcher.Errors:
-				fmt.Println("error:", err)
+				fmt.Println("Error: ", err)
 			}
 		}
 	}()
 
 	err = watcher.Add(downloadFolder)
 	if err != nil {
-		fmt.Println("error:", err)
+		fmt.Println("Error: ", err)
 	}
 
 	<-done
 }
 
-func setupAll(filePath string) {
-	// TODO: iterate over fileTypes.Category
-	checkFolder(filePath, "Compressed")
-	checkFolder(filePath, "Documents")
-	checkFolder(filePath, "Executables")
-	checkFolder(filePath, "Images")
-	checkFolder(filePath, "Sounds")
-	checkFolder(filePath, "Fonts")
+func setupAll(downloadFolder string) {
+	fmt.Println("Checking category folders...")
+
+	checkFolder(downloadFolder, "Compressed")
+	checkFolder(downloadFolder, "Documents")
+	checkFolder(downloadFolder, "Executables")
+	checkFolder(downloadFolder, "Images")
+	checkFolder(downloadFolder, "Sounds")
+	checkFolder(downloadFolder, "Fonts")
 }
 
 func checkFolder(downloadFolder, folderName string) {
 	folder := downloadFolder + folderName
-	// fmt.Println(folder)
 	if _, err := os.Stat(folder); os.IsNotExist(err) {
 		os.Mkdir(folder, 0777)
-		fmt.Printf("Creating new folder: '%s'\n", folder)
+		fmt.Printf("Creating new category folder: '%s'\n", folder)
 	} else {
 		// fmt.Printf("Folder '%s' does already exist.\n", folder)
 		return
@@ -141,7 +139,7 @@ func WalkMatch(downloadFolder, pattern string) ([]string, error) {
 func getUserHomeDir() string {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Printf("Error while getting User home directory: %s\n", err)
 	}
 	return homeDir
 }
