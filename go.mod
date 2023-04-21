@@ -1,4 +1,4 @@
-module github.com/SvenSchneiderDVAG/watch_dawg
+module github.com/SvenSchneiderDVAG/watch-dawg
 
 go 1.20
 
