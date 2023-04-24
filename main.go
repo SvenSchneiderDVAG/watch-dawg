@@ -61,6 +61,7 @@ func main() {
 	watcher, err := fsnotify.NewWatcher()
 	if err != nil {
 		fmt.Println("ERROR:", err)
+		os.Exit(1)
 	}
 	defer watcher.Close()
 
@@ -79,8 +80,7 @@ func main() {
 						for _, file := range files {
 							DebugPrint("Moving file", file, "to folder", fileType.Category)
 							fileName := filepath.Base(file)
-							err := os.Rename(file, df+fileType.Category+"/"+fileName)
-							if err != nil {
+							if err := os.Rename(file, df+fileType.Category+"/"+fileName); err != nil {
 								fmt.Printf("ERROR: can't move file %s: %s\n", file, err)
 								return
 							}
@@ -93,8 +93,7 @@ func main() {
 		}
 	}()
 
-	err = watcher.Add(df)
-	if err != nil {
+	if err = watcher.Add(df); err != nil {
 		fmt.Println("ERROR:", err)
 	}
 
@@ -138,6 +137,7 @@ func getUserHomeDir() string {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Printf("ERROR: can't get user home directory: %s\n", err)
+		os.Exit(1)
 	}
 	return homeDir
 }
