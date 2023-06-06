@@ -25,9 +25,11 @@ func main() {
 
 	fileTypes := []FileType{
 		{Name: "PDF", Extension: ".pdf", Category: cat[0]},
+		{Name: "EPub", Extension: ".pub", Category: cat[0]},
 		{Name: "Text", Extension: ".txt", Category: cat[0]},
 		{Name: "Word", Extension: ".docx", Category: cat[0]},
 		{Name: "Exel", Extension: ".xlsx", Category: cat[0]},
+		{Name: "Markdown", Extension: ".md", Category: cat[0]},
 		{Name: "Powerpoint", Extension: ".pptx", Category: cat[0]},
 		{Name: "Program", Extension: ".exe", Category: cat[1]},
 		{Name: "Setup", Extension: ".msi", Category: cat[1]},
