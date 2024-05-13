@@ -1,128 +1,129 @@
 {
-    "filetypesc": [
-        {
-            "name": "PDF",
-            "extension": ".pdf",
-            "category": "Documents"
-        },
-        {
-            "name": "EPub",
-            "extension": ".pub",
-            "category": "Documents"
-        },
-        {
-            "name": "Text",
-            "extension": ".txt",
-            "category": "Documents"
-        },
-        {
-            "name": "Word",
-            "extension": ".docx",
-            "category": "Documents"
-        },
-        {
-            "name": "Exel",
-            "extension": ".xlsx",
-            "category": "Documents"
-        },
-        {
-            "name": "Markdown",
-            "extension": ".md",
-            "category": "Documents"
-        },
-        {
-            "name": "Powerpoint",
-            "extension": ".pptx",
-            "category": "Documents"
-        },
-        {
-            "name": "Program",
-            "extension": ".exe",
-            "category": "Executables"
-        },
-        {
-            "name": "Setup",
-            "extension": ".msi",
-            "category": "Executables"
-        },
-        {
-            "name": "ZIP",
-            "extension": ".zip",
-            "category": "Compressed"
-        },
-        {
-            "name": "RAR",
-            "extension": ".rar",
-            "category": "Compressed"
-        },
-        {
-            "name": "PNG",
-            "extension": ".png",
-            "category": "Images"
-        },
-        {
-            "name": "JPEG",
-            "extension": ".jpg",
-            "category": "Images"
-        },
-        {
-            "name": "BMP",
-            "extension": ".bmp",
-            "category": "Images"
-        },
-        {
-            "name": "TIFF",
-            "extension": ".tiff",
-            "category": "Images"
-        },
-        {
-            "name": "GIF",
-            "extension": ".gif",
-            "category": "Images"
-        },
-        {
-            "name": "MP3",
-            "extension": ".mp3",
-            "category": "Sounds"
-        },
-        {
-            "name": "WAVE",
-            "extension": ".wav",
-            "category": "Sounds"
-        },
-        {
-            "name": "MP4",
-            "extension": ".mp4",
-            "category": "Sounds"
-        },
-        {
-            "name": "Playlist",
-            "extension": ".pls",
-            "category": "Sounds"
-        },
-        {
-            "name": "OGG",
-            "extension": ".ogg",
-            "category": "Sounds"
-        },
-        {
-            "name": "MKV",
-            "extension": ".mkv",
-            "category": "Videos"
-        },
-        {
-            "name": "AVI",
-            "extension": ".avi",
-            "category": "Videos"
-        },
-        {
-            "name": "MPG",
-            "extension": ".mpg",
-            "category": "Videos"
-        },
-        {
-            "name": "Font",
-            "extension": ".ttf",
-            "category": "Misc"
-        }
-    ]}   
+  "filetypes": [
+    {
+      "name": "PDF",
+      "extension": ".pdf",
+      "category": "Documents"
+    },
+    {
+      "name": "EPub",
+      "extension": ".pub",
+      "category": "Documents"
+    },
+    {
+      "name": "Text",
+      "extension": ".txt",
+      "category": "Documents"
+    },
+    {
+      "name": "Word",
+      "extension": ".docx",
+      "category": "Documents"
+    },
+    {
+      "name": "Exel",
+      "extension": ".xlsx",
+      "category": "Documents"
+    },
+    {
+      "name": "Markdown",
+      "extension": ".md",
+      "category": "Documents"
+    },
+    {
+      "name": "Powerpoint",
+      "extension": ".pptx",
+      "category": "Documents"
+    },
+    {
+      "name": "Program",
+      "extension": ".exe",
+      "category": "Executables"
+    },
+    {
+      "name": "Setup",
+      "extension": ".msi",
+      "category": "Executables"
+    },
+    {
+      "name": "ZIP",
+      "extension": ".zip",
+      "category": "Compressed"
+    },
+    {
+      "name": "RAR",
+      "extension": ".rar",
+      "category": "Compressed"
+    },
+    {
+      "name": "PNG",
+      "extension": ".png",
+      "category": "Images"
+    },
+    {
+      "name": "JPEG",
+      "extension": ".jpg",
+      "category": "Images"
+    },
+    {
+      "name": "BMP",
+      "extension": ".bmp",
+      "category": "Images"
+    },
+    {
+      "name": "TIFF",
+      "extension": ".tiff",
+      "category": "Images"
+    },
+    {
+      "name": "GIF",
+      "extension": ".gif",
+      "category": "Images"
+    },
+    {
+      "name": "MP3",
+      "extension": ".mp3",
+      "category": "Sounds"
+    },
+    {
+      "name": "WAVE",
+      "extension": ".wav",
+      "category": "Sounds"
+    },
+    {
+      "name": "MP4",
+      "extension": ".mp4",
+      "category": "Sounds"
+    },
+    {
+      "name": "Playlist",
+      "extension": ".pls",
+      "category": "Sounds"
+    },
+    {
+      "name": "OGG",
+      "extension": ".ogg",
+      "category": "Sounds"
+    },
+    {
+      "name": "MKV",
+      "extension": ".mkv",
+      "category": "Videos"
+    },
+    {
+      "name": "AVI",
+      "extension": ".avi",
+      "category": "Videos"
+    },
+    {
+      "name": "MPG",
+      "extension": ".mpg",
+      "category": "Videos"
+    },
+    {
+      "name": "Font",
+      "extension": ".ttf",
+      "category": "Misc"
+    }
+  ]
+}

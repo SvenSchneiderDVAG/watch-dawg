@@ -24,7 +24,7 @@ type FileType struct {
 
 func main() {
 	userDir := getUserHomeDir()
-	df := userDir + "/Downloads/"
+	df := filepath.Join(userDir, "Downloads/")
 
 	// Open the file
 	file, err := os.Open("config.json")
@@ -59,6 +59,7 @@ func main() {
 	// create category folders if they don't exist
 	for _, fileType := range fileTypes {
 		checkFolder(df, fileType.Category)
+		// fmt.Printf("Category folder: %s\n", fileType.Category)
 	}
 
 	fmt.Printf("\nDone!\n\n")
@@ -86,7 +87,8 @@ func main() {
 						for _, file := range files {
 							DebugPrint("Moving file", file, "to folder", fileType.Category)
 							fileName := filepath.Base(file)
-							if err := os.Rename(file, df+fileType.Category+"/"+fileName); err != nil {
+							destinationPath := filepath.Join(df, fileType.Category, fileName)
+							if err := os.Rename(file, destinationPath); err != nil {
 								fmt.Printf("ERROR: can't move file %s: %s\n", file, err)
 								return
 							}
@@ -107,7 +109,7 @@ func main() {
 }
 
 func checkFolder(df, folderName string) {
-	folder := df + folderName
+	folder := filepath.Join(df, folderName)
 	if _, err := os.Stat(folder); os.IsNotExist(err) {
 		os.Mkdir(folder, 0777)
 		DebugPrint("INFO: Creating new category folder:", folder)
