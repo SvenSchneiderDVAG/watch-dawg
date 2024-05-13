@@ -59,7 +59,6 @@ func main() {
 	// create category folders if they don't exist
 	for _, fileType := range fileTypes {
 		checkFolder(df, fileType.Category)
-		// fmt.Printf("Category folder: %s\n", fileType.Category)
 	}
 
 	fmt.Printf("\nDone!\n\n")
