@@ -12,7 +12,9 @@ import (
 
 const DEBUG = false
 const CONFIG_FILE = "config.json"
-const DOWNLOAD_FOLDER = "F:/Downloads"
+
+// leave empty to use default OS download folder
+const DOWNLOAD_FOLDER = "" 
 
 // Define the struct to hold the JSON data
 type FileTypes struct {
@@ -27,19 +29,17 @@ type FileType struct {
 func main() {
 	var df string
 	if DOWNLOAD_FOLDER == "" {
-		df = filepath.Join(getUserHomeDir(), "Downloads/")
+		df = filepath.Join(getUserHomeDir(), "Downloads")
 	} else {
 		df = DOWNLOAD_FOLDER
 	}
 
-	// Open the file
 	file, err := os.Open(CONFIG_FILE)
 	if err != nil {
 		log.Fatalf("ERROR: can't open config.json: %s\n", err)
 	}
 	defer file.Close()
 
-	// Read the file contents
 	fileContents, err := os.ReadFile(CONFIG_FILE)
 	if err != nil {
 		log.Fatalf("ERROR: can't read config.json: %s\n", err)
@@ -50,16 +50,15 @@ func main() {
 		log.Fatalf("ERROR: can't decode config.json: %s\n", err)
 	}
 
-	// Access the decoded file types
 	fileTypes := fileData.Filetypes
 
-	// Print the decoded data
-	// for _, fileType := range fileTypes {
-	// 	fmt.Printf("Name: %s\nExtension: %s\nCategory: %s\n\n", fileType.Name, fileType.Extension, fileType.Category)
-	// }
+	if DEBUG {
+		for _, fileType := range fileTypes {
+			fmt.Printf("Name: %s\nExtension: %s\nCategory: %s\n\n", fileType.Name, fileType.Extension, fileType.Category)
+		}
+	}
 
 	fmt.Println("Watch Dawg started...")
-
 	fmt.Println("\nChecking category folders...")
 
 	// create category folders if they don't exist
