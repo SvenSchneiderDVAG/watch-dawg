@@ -11,6 +11,8 @@ import (
 )
 
 const DEBUG = false
+const CONFIG_FILE = "config.json"
+const DOWNLOAD_FOLDER = "F:/Downloads"
 
 // Define the struct to hold the JSON data
 type FileTypes struct {
@@ -23,18 +25,22 @@ type FileType struct {
 }
 
 func main() {
-	userDir := getUserHomeDir()
-	df := filepath.Join(userDir, "Downloads/")
+	var df string
+	if DOWNLOAD_FOLDER == "" {
+		df = filepath.Join(getUserHomeDir(), "Downloads/")
+	} else {
+		df = DOWNLOAD_FOLDER
+	}
 
 	// Open the file
-	file, err := os.Open("config.json")
+	file, err := os.Open(CONFIG_FILE)
 	if err != nil {
 		log.Fatalf("ERROR: can't open config.json: %s\n", err)
 	}
 	defer file.Close()
 
 	// Read the file contents
-	fileContents, err := os.ReadFile("config.json")
+	fileContents, err := os.ReadFile(CONFIG_FILE)
 	if err != nil {
 		log.Fatalf("ERROR: can't read config.json: %s\n", err)
 	}
