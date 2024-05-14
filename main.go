@@ -13,10 +13,9 @@ import (
 const DEBUG = false
 const CONFIG_FILE = "config.json"
 
-// leave empty to use default OS download folder
+// leave empty to use your OS default download folder
 const DOWNLOAD_FOLDER = "" 
 
-// Define the struct to hold the JSON data
 type FileTypes struct {
 	Filetypes []FileType `json:"filetypes"`
 }
