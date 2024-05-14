@@ -20,4 +20,5 @@
 # Go workspace file
 go.work
 /build/watch-dawg
+watch-dawg
 .vscode/settings.json
