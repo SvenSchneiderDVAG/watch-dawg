@@ -2,7 +2,7 @@
 
 ## Description
 
-Watch-Dawg is a little tool written in Go to observe your download folder and move known files into dedicated folders.
+Watch-Dawg is a little tool written in Go to observe your download folder and move known files into organized customizable folders.
 
 E.g. when you download a file with extension '.txt' or '.pdf' it automatically gets moved to a folder 'Documents' in your download folder.
 
