@@ -2,11 +2,11 @@
 
 ## Description
 
-Watch Dawg is a little tool written in Go to observe your download folder and sort known files into dedicated folders.
+Watch-Dawg is a little tool written in Go to observe your download folder and move known files into dedicated folders.
 
-For e.g. when you download a file with extension '.txt' or '.pdf' it automatically gets moved to a folder 'Documents' in your download folder.
+E.g. when you download a file with extension '.txt' or '.pdf' it automatically gets moved to a folder 'Documents' in your download folder.
 
-It should work on Windows, Linux and MacOS.
+It should work fine on Windows, Linux and MacOS.
 
 ## Configuration
 
