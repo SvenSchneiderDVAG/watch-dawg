@@ -1,4 +1,4 @@
-# Watch Dawg
+# Watch-Dawg
 
 ## Description
 
