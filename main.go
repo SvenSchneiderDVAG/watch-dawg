@@ -18,7 +18,7 @@ const FormatString = "%s %s\n"
 const ConfigFile = "config.json"
 
 // leave empty to use your OS default download folder
-const DownloadFolder = "" 
+const DownloadFolder = "F:\\Downloads" 
 
 type FileTypes struct {
 	Filetypes []FileType `json:"filetypes"`
@@ -51,14 +51,14 @@ func main() {
 	printDebugInfo(fileTypes)
 
 	fmt.Println("Watch Dawg started...")
-	fmt.Println("\nChecking category folders...")
-
+	
 	createCategoryFolders(df, fileTypes)
 
 	startWatching(df, fileTypes)
 }
 
 func createCategoryFolders(df string, fileTypes []FileType) {
+    fmt.Println("\nChecking category folders...")
 	for _, fileType := range fileTypes {
 		checkFolder(df, fileType.Category)
 	}
