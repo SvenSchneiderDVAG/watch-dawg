@@ -10,7 +10,7 @@ It should work fine on Windows, Linux and MacOS.
 
 ## Configuration
 
-You can configure the tool by editing the `config.json` file. Also you can change the constant `DOWNLOAD_FOLDER` to your custom download folder in `main.go` file.
+You can configure the tool by editing the `config.json` file. Also you can change the constant `DownloadFolder` to your custom download folder in `main.go` file. eg. "F:/Download" or "C:\\Download"
 
 ## Disclaimer
 
