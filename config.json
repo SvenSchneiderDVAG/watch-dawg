@@ -26,6 +26,11 @@
       "category": "Documents"
     },
     {
+      "name": "CSV",
+      "extension": ".csv",
+      "category": "Documents"
+    },
+    {
       "name": "Markdown",
       "extension": ".md",
       "category": "Documents"
@@ -56,6 +61,11 @@
       "category": "Compressed"
     },
     {
+      "name": "LHA",
+      "extension": ".lha",
+      "category": "Compressed"
+    },
+    {
       "name": "PNG",
       "extension": ".png",
       "category": "Images"
@@ -63,6 +73,11 @@
     {
       "name": "JPEG",
       "extension": ".jpg",
+      "category": "Images"
+    },
+    {
+      "name": "JPEG",
+      "extension": ".jpeg",
       "category": "Images"
     },
     {
@@ -91,11 +106,6 @@
       "category": "Sounds"
     },
     {
-      "name": "MP4",
-      "extension": ".mp4",
-      "category": "Sounds"
-    },
-    {
       "name": "Playlist",
       "extension": ".pls",
       "category": "Sounds"
@@ -116,6 +126,11 @@
       "category": "Videos"
     },
     {
+      "name": "MP4",
+      "extension": ".mp4",
+      "category": "Videos"
+    },
+    {
       "name": "MPG",
       "extension": ".mpg",
       "category": "Videos"
@@ -123,7 +138,7 @@
     {
       "name": "Font",
       "extension": ".ttf",
-      "category": "Misc"
+      "category": "Fonts"
     },
     {
       "name": "Log",
