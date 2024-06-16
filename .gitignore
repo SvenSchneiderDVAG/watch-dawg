@@ -22,3 +22,4 @@ go.work
 /build/watch-dawg
 watch-dawg
 .vscode/settings.json
+watch-dawg.code-workspace
