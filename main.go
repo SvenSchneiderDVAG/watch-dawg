@@ -18,7 +18,7 @@ const FormatString = "%s %s\n"
 const ConfigFile = "config.json"
 
 // leave empty to use your OS default download folder
-const DownloadFolder = "F:\\Downloads" 
+const DownloadFolder = "F:/Downloads" 
 
 type FileTypes struct {
 	Filetypes []FileType `json:"filetypes"`
