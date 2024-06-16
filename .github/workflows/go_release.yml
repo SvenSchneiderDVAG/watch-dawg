@@ -1,17 +1,15 @@
 # .github/workflows/go_release.yaml
-
 name: Go Release
 
 on:
     release:
       types: [created]
   
-  permissions:
-      contents: write
-      packages: write
+permissions:
+    contents: write
+    packages: write
   
-  jobs:
-    
+jobs:
     releases-matrix:
       name: Release Go Binary
       runs-on: ubuntu-latest
